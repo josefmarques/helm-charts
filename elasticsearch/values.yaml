@@ -1,3 +1,5 @@
+
+###
 ---
 clusterName: "elasticsearch"
 nodeGroup: "master"
@@ -22,7 +24,7 @@ roles:
   - transform
 
 replicas: 3
-minimumMasterNodes: 2
+minimumMasterNodes: 1
 
 esMajorVersion: ""
 
@@ -34,6 +36,8 @@ esConfig: {}
 #      nestedkey: value
 #  log4j2.properties: |
 #    key = value
+#  xpack.fleet.registryProxyUrl: "http://proxy.meioambiente.mg.gov.br:8080"
+
 
 createCert: true
 
@@ -110,6 +114,7 @@ volumeClaimTemplate:
   resources:
     requests:
       storage: 30Gi
+  storageClassName: nfs-csi
 
 rbac:
   create: false
@@ -260,7 +265,7 @@ ingress:
   className: "nginx"
   pathtype: ImplementationSpecific
   hosts:
-    - host: chart-example.local
+    - host: elastic.infra.meioambiente.mg.gov.br
       paths:
         - path: /
   tls: []
